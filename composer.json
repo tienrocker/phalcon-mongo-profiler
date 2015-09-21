@@ -1,0 +1,17 @@
+{
+    "name": "tienrocker/phalcon-mongo-profiler",
+    "type": "project",
+    "description": "Phalcon sample project with mongo profiler",
+    "keywords": ["application", "website", "development", "framework", "PHP"],
+    "license": "MIT",
+    "minimum-stability": "stable",
+    "require": {
+        "fabfuel/prophiler": "*"
+    },
+    "authors": [
+        {
+            "name": "tien tran",
+            "email": "tienrocker@gmail.com"
+        }
+    ]
+}
