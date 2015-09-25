@@ -5,8 +5,15 @@
     "keywords": ["application", "website", "development", "framework", "PHP"],
     "license": "MIT",
     "minimum-stability": "stable",
+    "repositories": [
+        {
+            "url": "https://github.com/tienrocker/phalcon-mongo-profiler-collection.git",
+            "type": "git"
+        }
+    ],
     "require": {
-        "fabfuel/prophiler": "*"
+        "fabfuel/prophiler": "*",
+        "tienrocker/phalcon-mongo-profiler-collection" : "*"
     },
     "authors": [
         {

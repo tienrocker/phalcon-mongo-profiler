@@ -1,6 +1,6 @@
 <?php
 
-class Test extends \Collection
+class Test extends tienrocker\Collection
 {
     /**
      *

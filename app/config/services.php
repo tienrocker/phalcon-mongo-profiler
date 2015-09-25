@@ -16,19 +16,17 @@ use Phalcon\Session\Adapter\Files as SessionAdapter;
 /**
  * The FactoryDefault Dependency Injector automatically register the right services providing a full stack framework
  */
-// $di = new FactoryDefault();
-$di = new \Phalcon\DI\FactoryDefault();
+$di = new FactoryDefault();
 
 /**
  * Phalcon profiler
  */
-$di->setShared('profiler', function () use ($di, $config) {
-
-    if (isset($config->profiler) && (bool)$config->profiler->profiler === true) {
+$di->set('profiler', function () use ($di, $config) {
+    if (isset($config->application->debug) && (bool)$config->application->debug === true) {
         return new \Fabfuel\Prophiler\Profiler();
     }
     return null;
-});
+}, true);
 
 /**
  * The URL component is used to generate all kind of urls in the application
@@ -43,7 +41,7 @@ $di->set('url', function () use ($config) {
 /**
  * Setting up the view component
  */
-$di->setShared('view', function () use ($config) {
+$di->set('view', function () use ($config) {
 
     $view = new View();
 
@@ -65,47 +63,47 @@ $di->setShared('view', function () use ($config) {
     ));
 
     return $view;
-});
+}, true);
 
 /**
  * Database connection is created based in the parameters defined in the configuration file
  */
 $di->set('db', function () use ($config) {
     return new DbAdapter($config->database->toArray());
-});
+}, true);
 
 /**
  * Mongo Database connection
  */
-$di->setShared('mongo', function () use ($config) {
+$di->set('mongo', function () use ($config) {
     $conn = sprintf('mongodb://%s:%s@%s:%s', $config->mongodb->username, $config->mongodb->password, $config->mongodb->host, $config->mongodb->port);
     $mongo = new \MongoClient($conn);
     return $mongo->selectDb($config->mongodb->dbname);
-});
+}, true);
 
 /**
  * Collection manager for Mongo Database
  */
-$di->setShared('collectionManager', function () {
+$di->set('collectionManager', function () {
     return new Phalcon\Mvc\Collection\Manager();
-});
+}, true);
 
 /**
  * If the configuration specify the use of metadata adapter use it or use memory otherwise
  */
 $di->set('modelsMetadata', function () {
     return new MetaDataAdapter();
-});
+}, true);
 
 /**
  * Start the session the first time some component request the session service
  */
-$di->setShared('session', function () {
+$di->set('session', function () {
     $session = new SessionAdapter();
     $session->start();
 
     return $session;
-});
+}, true);
 
 /**
  * Set profiler event handler
