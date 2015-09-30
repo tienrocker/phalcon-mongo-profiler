@@ -14,8 +14,8 @@ class TestController extends \Phalcon\Mvc\Controller
 
         $insert->name = 'test 123456789-' . time();
         $insert->save();
-
         $test = Test::find(array(
+            'sort' => array('name' => 1),
             'limit' => 4,
         ));
 
